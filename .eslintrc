@@ -1,0 +1,17 @@
+{
+	"extends": "wikimedia",
+	"globals": {
+		"browser": false,
+		"$": false,
+		"$$": false
+	},
+	"env": {
+		"node": true,
+		"mocha": true,
+		"es6": true
+	},
+	"rules": {
+		"comma-dangle": 0,
+		"no-console": 0
+	}
+}
