@@ -1,5 +1,6 @@
+'use strict';
+
 const assert = require( 'assert' );
-let tests;
 
 /**
  * Checks if error is expected and can be ignored,
@@ -29,7 +30,7 @@ function knownErrors( message ) {
 	return false;
 }
 
-tests = {
+const tests = {
 	// common tests
 	correctTitle( correctTitle ) {
 		return it( `should have the title: "${correctTitle}"`, function () {
@@ -41,11 +42,13 @@ tests = {
 		return it( 'should not produce browser errors', function () {
 
 			const logs = browser.log( 'browser' ),
-				errors = logs.value.filter( log => {
+				errors = logs.value.filter( ( log ) => {
 					const isError = log.level === 'SEVERE',
 						isNotaKnownError = !knownErrors( log.message );
 					if ( isError && isNotaKnownError ) {
-						return log;
+						return true;
+					} else {
+						return false;
 					}
 				} );
 			assert.equal( errors.length, 0, `${JSON.stringify( errors )}` );
