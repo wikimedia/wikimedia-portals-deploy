@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable mocha/no-exports */
+
 const assert = require( 'assert' );
 
 /**
