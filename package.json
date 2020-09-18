@@ -17,8 +17,8 @@
     "url": "https://gerrit.wikimedia.org/r/wikimedia/portals/deploy"
   },
   "devDependencies": {
-    "eslint": "^4.12.1",
-    "eslint-config-wikimedia": "^0.5.0",
+    "eslint": "^7.6.0",
+    "eslint-config-wikimedia": "^0.16.2",
     "mocha": "^4.0.1",
     "static-server": "^3.0.0",
     "wdio-mocha-framework": "^0.5.11",

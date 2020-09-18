@@ -13,7 +13,7 @@ exports.config = {
 	key: process.env.SAUCE_ACCESS_KEY,
 	*/
 	specs: [
-		relPath( './tests/selenium/specs/**/*.spec.js' ),
+		relPath( './tests/selenium/specs/**/*.spec.js' )
 	],
 	// Patterns to exclude.
 	exclude: [
@@ -142,14 +142,14 @@ exports.config = {
 	// =====
 	// Hooks
 	// =====
-	// WebdriverIO provides several hooks you can use to interfere with the test process in order to enhance
-	// it and to build services around it. You can either apply a single function or an array of
-	// methods to it. If one of them returns with a promise, WebdriverIO will wait until that promise got
-	// resolved to continue.
+	// WebdriverIO provides several hooks you can use to interfere with the test process in order
+	// to enhance it and to build services around it. You can either apply a single function or
+	// an array of methods to it. If one of them returns with a promise, WebdriverIO will wait
+	// until that promise got resolved to continue.
 	//
 	// Gets executed once before all workers get launched.
 	onPrepare: function () {
-		var StaticServer = require( 'static-server' ),
+		const StaticServer = require( 'static-server' ),
 			server = new StaticServer( {
 				rootPath: '.', // required, the root of the server file tree
 				name: 'portal-deploy-test-server', // optional, will set "X-Powered-by" HTTP header
@@ -199,19 +199,18 @@ exports.config = {
 	// Function to be executed after a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
 	// from https://github.com/webdriverio/webdriverio/issues/269#issuecomment-306342170
 	afterTest: function ( test ) {
-		var filename, filePath;
 		// if test passed, ignore, else take and save screenshot
 		if ( test.passed ) {
 			return;
 		}
 		// get current test title and clean it, to use it as file name
-		filename = encodeURIComponent( test.title.replace( /\s+/g, '-' ) );
+		const filename = encodeURIComponent( test.title.replace( /\s+/g, '-' ) );
 		// build file path
-		filePath = this.screenshotPath + filename + '.png';
+		const filePath = this.screenshotPath + filename + '.png';
 		// save screenshot
 		browser.saveScreenshot( filePath );
 		console.log( '\n\tScreenshot location:', filePath, '\n' );
-	},
+	}
 	//
 	// Hook that gets executed after the suite has ended
 	// afterSuite: function (suite) {
