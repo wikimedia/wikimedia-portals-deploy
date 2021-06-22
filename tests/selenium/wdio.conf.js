@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require( 'fs' );
 const path = require( 'path' );
 
 function relPath( foo ) {
@@ -49,9 +50,12 @@ exports.config = {
 		maxInstances: 1,
 		//
 		browserName: 'chrome',
-		// Since Chrome v57 https://bugs.chromium.org/p/chromedriver/issues/detail?id=1625
 		chromeOptions: {
-			args: [ '--enable-automation' ]
+			args: [
+				'--enable-automation',
+				...( process.env.DISPLAY ? [] : [ '--headless' ] ),
+				...( fs.existsSync( '/.dockerenv' ) ? [ '--no-sandbox' ] : [] )
+			]
 		}
 	} ],
 	//
