@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint --config=.eslintrc ./tests",
-    "selenium": "chromedriver --url-base=/wd/hub --port=4444 & ./node_modules/.bin/wdio ./tests/selenium/wdio.conf.js; pkill chromedriver",
+    "selenium": "chromedriver --url-base=/wd/hub --port=4444 & trap 'pkill chromedriver' EXIT; ./node_modules/.bin/wdio ./tests/selenium/wdio.conf.js",
     "test": "npm run lint && npm run selenium",
     "serve": "./node_modules/.bin/static-server --port=8080"
   },
