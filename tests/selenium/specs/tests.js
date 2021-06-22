@@ -37,8 +37,8 @@ const tests = {
 		assert.equal( title, correctTitle );
 	},
 	noBrowserErrors() {
-		const logs = browser.log( 'browser' ),
-			errors = logs.value.filter( ( log ) => {
+		const logs = browser.getLogs( 'browser' ),
+			errors = logs.filter( ( log ) => {
 				const isError = log.level === 'SEVERE',
 					isNotaKnownError = !knownErrors( log.message );
 				if ( isError && isNotaKnownError ) {
@@ -51,24 +51,25 @@ const tests = {
 	},
 	// Wikipedia.org specific tests
 	focusOnSearch() {
-		assert( browser.hasFocus( 'input[name=search]' ) );
+		$( 'input[name=search]' ).isFocused();
 	},
 	expandLanguageLinks() {
-		browser.click( '.lang-list-button' );
-		assert( browser.waitForVisible( '.lang-list-content', 1000 ) );
+		$( '.lang-list-button' ).click();
+		assert( $( '.lang-list-content' ).waitForDisplayed( 1000 ) );
 	},
 	collapseLanguageLinks() {
-		browser.click( '.lang-list-button' );
-		assert( browser.waitForVisible( '.lang-list-content', 1000, true ) );
+		$( '.lang-list-button' ).click();
+		assert( $( '.lang-list-content' ).waitForDisplayed( 2000, true ) );
 	},
 	searchSuggestionsForQuery( query ) {
-		browser.setValue( '#searchInput', query );
-		assert( browser.waitForVisible( '.suggestions-dropdown', 3000 ) );
-		assert( browser.waitForVisible( '.suggestion-link', 3000 ) );
-		assert( browser.getText( '.suggestion-title' ), query );
+		$( '#searchInput' ).setValue( query );
+
+		assert( $( '.suggestions-dropdown' ).waitForDisplayed( 3000 ) );
+		assert( $( '.suggestion-link' ).waitForDisplayed( 3000 ) );
+		assert( $( '.suggestion-title' ).getText(), query );
 	},
 	searchShouldRedirectTo( article ) {
-		browser.click( '#search-form button[type="submit"]' );
+		$( '#search-form button[type="submit"]' ).click();
 		assert( browser.getUrl(), article );
 	}
 };

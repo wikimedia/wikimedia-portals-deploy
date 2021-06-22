@@ -50,7 +50,7 @@ exports.config = {
 		maxInstances: 1,
 		//
 		browserName: 'chrome',
-		chromeOptions: {
+		'goog:chromeOptions': {
 			args: [
 				'--enable-automation',
 				...( process.env.DISPLAY ? [] : [ '--headless' ] ),
