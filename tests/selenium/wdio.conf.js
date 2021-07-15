@@ -2,6 +2,7 @@
 
 const fs = require( 'fs' );
 const path = require( 'path' );
+const logPath = process.env.LOG_DIR || './log';
 
 function relPath( foo ) {
 	return path.resolve( __dirname, '../..', foo );
@@ -76,7 +77,7 @@ exports.config = {
 	coloredLogs: true,
 	//
 	// Saves a screenshot to a given path if a command fails.
-	screenshotPath: './log/',
+	screenshotPath: logPath,
 	//
 	// Set a base URL in order to shorten url command calls. If your url parameter starts
 	// with "/", then the base url gets prepended.
@@ -210,7 +211,7 @@ exports.config = {
 		// get current test title and clean it, to use it as file name
 		const filename = encodeURIComponent( test.title.replace( /\s+/g, '-' ) );
 		// build file path
-		const filePath = this.screenshotPath + filename + '.png';
+		const filePath = path.join( this.screenshotPath, filename + '.png' );
 		// save screenshot
 		browser.saveScreenshot( filePath );
 		console.log( '\n\tScreenshot location:', filePath, '\n' );
